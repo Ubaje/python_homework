@@ -1,5 +1,5 @@
 #Task 2
-def type_converrter(type_of_output):
+def type_converter(type_of_output):
     def decorator(func):
         def wrapper(*args, **kwargs):
             x = func(*args, **kwargs)
@@ -7,11 +7,11 @@ def type_converrter(type_of_output):
         return wrapper
     return decorator
 
-@type_converrter(str)
+@type_converter(str)
 def return_int():
     return 5
 
-@type_converrter(int)
+@type_converter(int)
 def return_string():
     return "not a number"
     
