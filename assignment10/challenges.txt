@@ -1,0 +1,16 @@
+Challenges Faced in Assignment 10 - Task 6
+=====================================================================
+
+Challenge 1: Identifying the Right XPath Target
+-------------------------------------------------
+The OWASP page has multiple sections in its navigation section, and the top 10 list is present in more than one location on the page, in the sidebar and in the main content area. An XPath like //ol/li/a could match the wrong links or too many of them.
+
+Resolution: I examined the HTML of the page and saw that the heading "Top 10:2025 List" is present directly before the ordered list in the main content area of the page. So, I wrote an XPath like this:
+//h3[contains(text(),'Top 10:2025 List')]/following-sibling::ol[1]/li/a
+
+Challenge 2: Dynamic Page Loading with Selenium
+------------------------------------------------
+The OWASP web page employs Material for MkDocs, causing its JavaScript to load before the page’s entire DOM is rendered. As a result, calling driver.get() and then immediately executing find_elements() would not always find elements and sometimes throw an exception (e.g., NoSuchElementException).
+
+How I Fixed It: By adding 15 secs of WebDriverWait to wait until the target 
+ element is present at the time that the find_elements() method is executed, I guaranteed that the DOM was completely loaded prior to scraping from it.

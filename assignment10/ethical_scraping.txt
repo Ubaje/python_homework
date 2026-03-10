@@ -1,0 +1,55 @@
+# Task 5
+---------------------------------------------------------------
+Question 1: Which sections of the website are restricted for crawling?
+---------------------------------------------------------------
+The Wikipedia robots.txt disallows crawling of:
+
+  - /w/          (the MediaWiki API/action endpoints)
+  - /wiki/Special:   (Special pages such as search, random page, etc.)
+  - /wiki/Talk:      (Talk/discussion pages)
+  - /wiki/User:      (Individual user profile pages)
+  - /wiki/User_talk: (User talk/discussion pages)
+  - /wiki/Wikipedia_talk: (Wikipedia project discussion pages)
+  - /wiki/File_talk:
+  - /wiki/MediaWiki_talk:
+  - /wiki/Template_talk:
+  - /wiki/Help_talk:
+  - /wiki/Category_talk:
+  - /wiki/Portal_talk:
+  - Various action URLs like ?action=edit, ?action=raw, ?diff=, etc.
+
+---------------------------------------------------------------
+Question 2: Are there specific rules for certain user agents?
+---------------------------------------------------------------
+Yes. The file contains multiple "User-agent" sections:
+
+  * User-agent: *
+    The wildcard section applies to ALL crawlers.  It disallows the paths
+    listed above.
+
+  * User-agent: Googlebot
+    Google's bot is given a Crawl-delay directive and a few additional
+    path restrictions.
+
+  * User-agent: Mediapartners-Google
+    Google's ad bot is allowed to crawl freely (no Disallow lines), because
+    Wikipedia does not run ads but this agent is harmless.
+
+  * User-agent: Yandex / Bingbot / etc.
+    Some search-engine bots are given explicit crawl-delay values (e.g.,
+    "Crawl-delay: 1") to prevent server overload.
+
+  * Some historical bots (e.g., msnbot) are completely blocked with
+    "Disallow: /" because they were known to ignore rate limits.
+
+---------------------------------------------------------------
+Question 3: Why do websites use robots.txt?
+---------------------------------------------------------------
+The robots.txt file is a voluntary standard that allows website owners to
+communicate which parts of their site they do not want automated bots to
+access.  Its primary purpose is to protect server resources — if every bot
+crawled every page without restriction, the resulting traffic could slow or
+crash the server for real human visitors.  Ethical scraping means reading
+and respecting robots.txt before writing any scraping code, ensuring that
+your program only visits pages the site owner is comfortable sharing with
+automated tools.
